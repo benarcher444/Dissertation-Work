@@ -128,7 +128,7 @@ random_walk = function(beta,N,sigma){
   beta_list[[1]] = beta
   for (i in 2:N){
     proposed_beta = beta + rnorm(beta_length,0,sigma)
-    A = logpost(proposed_beta)/logpost(beta)
+    A = exp(logpost(proposed_beta))/exp(logpost(beta))
     if (runif(1) < A) {
       beta = proposed_beta
       a = a + 1
@@ -145,7 +145,7 @@ random_walk = function(beta,N,sigma){
 burn_in = 10000
 iter = 100000
 blen = 1
-sigma = 0.001
+sigma = 0.1
 
 burn = random_walk(init_beta(),burn_in,sigma/2)
 
